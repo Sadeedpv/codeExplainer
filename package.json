@@ -10,11 +10,22 @@
     "Other"
   ],
   "main": "./extension.js",
+  "activationEvents": [
+    "onCommand:code-explainer.hello-world",
+    "onCommand:code-explainer.explain"
+  ],
   "contributes": {
-    "commands": [{
-      "command": "code-explainer.explain",
-      "title": "Explain"
-    }]
+    "commands": [
+      {
+        "command": "code-explainer.hello-world",
+        "title": "Hello World!"
+      },
+      {
+        "command": "code-explainer.explain",
+        "title": "Explain",
+        "category": "View"
+      }
+    ]
   },
   "scripts": {
     "lint": "eslint .",
