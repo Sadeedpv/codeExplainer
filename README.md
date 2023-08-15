@@ -1,65 +1,58 @@
-# code-explainer README
+This README.md file explains how to create a Code Explainer extension for Visual Studio Code.
 
-This is the README for your extension "code-explainer". After writing up a brief description, we recommend including the following sections.
+## 1. Create a new project
 
-## Features
+Open Visual Studio Code and create a new project.
 
-Describe specific features of your extension including screenshots of your extension in action. Image paths are relative to this README file.
+## 2. Install the required dependencies
 
-For example if there is an image subfolder under your extension project workspace:
+In the terminal, run the following command to install the required dependencies:
 
-\!\[feature X\]\(images/feature-x.png\)
+```
+npm install vscode-extension-api
+```
 
-> Tip: Many popular extensions utilize animations. This is an excellent way to show off your extension! We recommend short, focused animations that are easy to follow.
+## 3. Create the extension
 
-## Requirements
+Create a new file called `extension.js` and paste the following code into it:
 
-If you have any requirements or dependencies, add a section describing those and how to install and configure them.
+```js
+const vscode = require("vscode");
 
-## Extension Settings
+function activate(context) {
+  console.log("Congratulations, your extension is now active!");
 
-Include if your extension adds any VS Code settings through the `contributes.configuration` extension point.
+  // Create a command
+  let disposable = vscode.commands.registerCommand(
+    "code-explainer.hello-world",
+    function () {
+      vscode.window.showInformationMessage("Hello World from Code Explainer!");
+    }
+  );
 
-For example:
+  context.subscriptions.push(disposable);
+}
 
-This extension contributes the following settings:
+function deactivate() {}
 
-* `myExtension.enable`: Enable/disable this extension.
-* `myExtension.thing`: Set to `blah` to do something.
+module.exports = {
+  activate,
+  deactivate,
+};
+```
 
-## Known Issues
+## 4. Activate the extension
 
-Calling out known issues can help limit users opening duplicate issues against your extension.
+To activate the extension, open the Extensions view (Ctrl+Shift+X) and search for "Code Explainer". Click the "Install" button to install the extension.
 
-## Release Notes
+## 5. Use the extension
 
-Users appreciate release notes as you update your extension.
+Once the extension is installed, you can use the "Code Explainer" command to show a side panel with information about the code you are currently editing.
 
-### 1.0.0
+## 6. Contribute to the project
 
-Initial release of ...
+This project is open source and contributions are welcome. Please feel free to fork the project and submit pull requests.
 
-### 1.0.1
+## 7. Learn more
 
-Fixed issue #.
-
-### 1.1.0
-
-Added features X, Y, and Z.
-
----
-
-## Working with Markdown
-
-You can author your README using Visual Studio Code.  Here are some useful editor keyboard shortcuts:
-
-* Split the editor (`Cmd+\` on macOS or `Ctrl+\` on Windows and Linux)
-* Toggle preview (`Shift+Cmd+V` on macOS or `Shift+Ctrl+V` on Windows and Linux)
-* Press `Ctrl+Space` (Windows, Linux, macOS) to see a list of Markdown snippets
-
-## For more information
-
-* [Visual Studio Code's Markdown Support](http://code.visualstudio.com/docs/languages/markdown)
-* [Markdown Syntax Reference](https://help.github.com/articles/markdown-basics/)
-
-**Enjoy!**
+For more information, please see the [Visual Studio Code documentation](https://code.visualstudio.com/docs/extensions/overview).

@@ -2,6 +2,9 @@
 // Import the module and reference it with the alias vscode in your code below
 const vscode = require("vscode");
 
+// Import the html code;
+const html = require("./libs/panel");
+
 // This method is called when your extension is activated
 // Your extension is activated the very first time the command is executed
 
@@ -22,7 +25,6 @@ function activate(context) {
     "code-explainer.hello-world",
     function () {
       // The code you place here will be executed every time your command is executed
-
       // Display a message box to the user
       vscode.window.showInformationMessage("Hello World from Code Explainer!");
     }
@@ -42,10 +44,12 @@ function activate(context) {
           "codeExplainer", // Identifies the type of the webview. Used internally
           "Code Explainer", // Title of the panel displayed to the user
           vscode.ViewColumn.One, // Editor column to show the new webview panel in.
-          { enableScripts: true } // Webview options. More on these later.
+          {
+            enableScripts: true
+          } // Webview options.
         );
         // Load content into the panel
-        panel.webview.html = "<h1>Hello from the WebView Panel!</h1>";
+        panel.webview.html = html;
 
         // Undispose the panel
         panel.onDidDispose(() => {
@@ -54,7 +58,7 @@ function activate(context) {
       }
     }
   );
-	context.subscriptions.push(panelDisposable);
+  context.subscriptions.push(panelDisposable);
 }
 
 // This method is called when your extension is deactivated
