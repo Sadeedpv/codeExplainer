@@ -16,10 +16,6 @@
     "Other"
   ],
   "main": "./extension.js",
-  "activationEvents": [
-    "onCommand:code-explainer.hello-world",
-    "onCommand:code-explainer.explain"
-  ],
   "contributes": {
     "commands": [
       {
@@ -51,6 +47,6 @@
   },
   "dependencies": {
     "dotenv": "^16.3.1",
-    "openapi": "^1.0.1"
+    "openai": "^3.3.0"
   }
 }

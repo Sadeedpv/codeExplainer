@@ -2,8 +2,8 @@
 // Import the module and reference it with the alias vscode in your code below
 const vscode = require("vscode");
 
-// Import the html code;
-const html = require("./libs/panel");
+// Import the functions
+const { getCodeExplanation, showCodeExplanation } = require("./libs/functions");
 
 // This method is called when your extension is activated
 // Your extension is activated the very first time the command is executed
@@ -26,7 +26,7 @@ function activate(context) {
     function () {
       // The code you place here will be executed every time your command is executed
       // Display a message box to the user
-      vscode.window.showInformationMessage("Hello World from Code Explainer!");
+      vscode.window.showInformationMessage(`Hello World from Code Explainer!`);
     }
   );
 
@@ -35,26 +35,23 @@ function activate(context) {
   // Create a sidepanel
   let panelDisposable = vscode.commands.registerCommand(
     "code-explainer.explain",
-    function () {
-      // Create and show panel
-      let panel = undefined;
+    async function () {
+      const editor = vscode.window.activeTextEditor;
+      if (!editor) {
+        vscode.window.showErrorMessage("The editor is empty or not active");
+        return;
+      }
+      // Get the code inside the editor
+      const document = editor.document;
+      const selection = editor.selection;
+      const text = document.getText(selection);
 
-      if (!panel) {
-        panel = vscode.window.createWebviewPanel(
-          "codeExplainer", // Identifies the type of the webview. Used internally
-          "Code Explainer", // Title of the panel displayed to the user
-          vscode.ViewColumn.One, // Editor column to show the new webview panel in.
-          {
-            enableScripts: true
-          } // Webview options.
-        );
-        // Load content into the panel
-        panel.webview.html = html;
-
-        // Undispose the panel
-        panel.onDidDispose(() => {
-          panel = undefined;
-        });
+      try {
+        const explanation = await getCodeExplanation(text);
+        console.log(explanation);
+      } catch (err) {
+        vscode.window.showErrorMessage("Failed to get code explanation");
+        console.error(err);
       }
     }
   );
@@ -66,5 +63,5 @@ function deactivate() {}
 
 module.exports = {
   activate,
-  deactivate,
+  deactivate
 };
