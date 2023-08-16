@@ -5,7 +5,7 @@ This is a VS Code extension that explains every bit of code inside your editor. 
 
 ## Installation
 
-To install the extension, open VS Code and go to the Extensions tab. Search for **Code Explainer** and click Install.
+To install the extension, open VS Code and go to the Extensions tab. Search for **Code Explainer** and click Install. Alternatively, You can install it from [here](https://marketplace.visualstudio.com/items?itemName=SadeedPV.code-explainer)
 ## HOW TO USE!?
 
 Once the extension is installed, you can use the command **Code Explainer: Explain** to get an explanation for any piece of code.
