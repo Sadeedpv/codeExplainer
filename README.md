@@ -1,7 +1,7 @@
 # Code Explainer
 This is a VS Code extension that explains every bit of code inside your editor. It uses the OpenAI API to generate explanations for code.
 
-![Code Explainer]("./assets/code-explainer-logo.png")
+![Code Explainer](https://github.com/Sadeedpv/codeExplainer/blob/main/assets/code-explainer-logo.png?raw=true)
 
 ## Installation
 
