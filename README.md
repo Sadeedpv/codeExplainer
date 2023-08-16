@@ -1,58 +1,23 @@
-This README.md file explains how to create a Code Explainer extension for Visual Studio Code.
+# Code Explainer
+This is a VS Code extension that explains every bit of code inside your editor. It uses the OpenAI API to generate explanations for code.
 
-## 1. Create a new project
+![Code Explainer]("./assets/code-explainer-logo.png")
 
-Open Visual Studio Code and create a new project.
+## Installation
 
-## 2. Install the required dependencies
+To install the extension, open VS Code and go to the Extensions tab. Search for **Code Explainer** and click Install.
+## HOW TO USE!?
 
-In the terminal, run the following command to install the required dependencies:
+Once the extension is installed, you can use the command **Code Explainer: Explain** to get an explanation for any piece of code.
+All you have to do is select the piece of code you want the explanation for and hit `Ctrl + shift + p` and search for explain.
 
-```
-npm install vscode-extension-api
-```
+But before that you have to configure your OpenAI API key. Go to your VSCode settings(Ctrl + ,) and search for code-explainer and set your `OPENAI API KEY` which you can easily obtain from here - [openai](https://platform.openai.com/account/api-keys)
 
-## 3. Create the extension
+Here is an example of how the extension can be used:
 
-Create a new file called `extension.js` and paste the following code into it:
+1. Open a file with some code in it.
+2. Select the code you want to explain.
+3. Click the "Code Explainer: Explain" command.
+4. The extension will generate an explanation for the code and show it in a side panel.
 
-```js
-const vscode = require("vscode");
-
-function activate(context) {
-  console.log("Congratulations, your extension is now active!");
-
-  // Create a command
-  let disposable = vscode.commands.registerCommand(
-    "code-explainer.hello-world",
-    function () {
-      vscode.window.showInformationMessage("Hello World from Code Explainer!");
-    }
-  );
-
-  context.subscriptions.push(disposable);
-}
-
-function deactivate() {}
-
-module.exports = {
-  activate,
-  deactivate,
-};
-```
-
-## 4. Activate the extension
-
-To activate the extension, open the Extensions view (Ctrl+Shift+X) and search for "Code Explainer". Click the "Install" button to install the extension.
-
-## 5. Use the extension
-
-Once the extension is installed, you can use the "Code Explainer" command to show a side panel with information about the code you are currently editing.
-
-## 6. Contribute to the project
-
-This project is open source and contributions are welcome. Please feel free to fork the project and submit pull requests.
-
-## 7. Learn more
-
-For more information, please see the [Visual Studio Code documentation](https://code.visualstudio.com/docs/extensions/overview).
+I hope you find this extension useful!

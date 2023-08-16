@@ -35,7 +35,7 @@
           "code-explainer.apiKey": {
             "type": "string",
             "default": "",
-            "description": "OpenAI API Key"
+            "description": "OPENAI API Key"
           }
         }
       }
