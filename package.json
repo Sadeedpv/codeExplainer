@@ -17,6 +17,10 @@
   ],
   "main": "./extension.js",
   "icon": "./assets/code-explainer-logo-ext.png",
+  "activationEvents": [
+    "onCommand:code-explainer.hello-world",
+    "onCommand:code-explainer.explain"
+  ],
   "contributes": {
     "commands": [
       {
