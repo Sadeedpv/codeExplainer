@@ -16,6 +16,7 @@
     "Other"
   ],
   "main": "./extension.js",
+  "icon": "./assets/code-explainer-logo-ext.png",
   "contributes": {
     "commands": [
       {
