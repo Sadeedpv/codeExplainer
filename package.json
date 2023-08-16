@@ -24,8 +24,20 @@
       },
       {
         "command": "code-explainer.explain",
-        "title": "Explain",
-        "category": "View"
+        "title": "Explain"
+      }
+    ],
+    "configuration":[
+      {
+        "type": "object",
+        "title": "code-explainer",
+        "properties": {
+          "code-explainer.apiKey": {
+            "type": "string",
+            "default": "",
+            "description": "OpenAI API Key"
+          }
+        }
       }
     ]
   },
