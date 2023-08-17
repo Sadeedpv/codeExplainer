@@ -11,10 +11,16 @@ To install the extension, open VS Code and go to the Extensions tab. Search for 
 
 - You have trouble understanding an open-source project.
 - Or Maybe you just copied the code from Stack Overflow or some other site, and you don't understand what you've just written.
+- You can also write comments to let AI generate your code
+
 ## HOW TO USE!?
 
 Once the extension is installed, you can use the command **Code Explainer: Explain** to get an explanation for any piece of code.
 All you have to do is select the piece of code you want the explanation for and hit `Ctrl + shift + p` and search for explain.
+
+## EXAMPLES
+
+![code-explainer-example](https://github.com/Sadeedpv/codeExplainer/blob/main/assets/vscode.gif?raw=true)
 
 ### Configuration
 
