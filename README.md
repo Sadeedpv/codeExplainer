@@ -37,4 +37,4 @@ Here is an example of how the extension can be used:
 
 Feel free to contribute to the Project. Even if it's just raising an issue or fixing a typo, it would matter a lot 💘
 
-I hope you find this extension useful!
+I hope you found this extension useful!
