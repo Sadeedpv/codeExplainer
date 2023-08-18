@@ -36,5 +36,6 @@ Here is an example of how the extension can be used:
 ### CONTRIBUTING
 
 Feel free to contribute to the Project. Even if it's just raising an issue or fixing a typo, it would matter a lot 💘
+If you would love to donate, See [here](https://www.patreon.com/SadeedPV)
 
 I hope you found this extension useful!
