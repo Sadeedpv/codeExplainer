@@ -9,6 +9,5 @@ vsc-extension-quickstart.md
 **/.eslintrc.json
 dist/extension.js
 out/
-node_modules/
 .github/
 ```

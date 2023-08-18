@@ -14,7 +14,23 @@ function activate(context) {
   // Use the console to output diagnostic information (console.log) and errors (console.error)
   // This line of code will only be executed once when your extension is activated
   console.log(
-    'Congratulations, your extension "code-explainer" is now active!');
+    'Congratulations, your extension "code-explainer" is now active!'
+  );
+
+  // Give explanation while hovering over a text
+  let hoverDiposable = vscode.languages.registerHoverProvider(
+    { scheme: "file", language: "javascript" },
+    {
+      async provideHover(document, position, token) {
+        const range = document.getWordRangeAtPosition(position);
+        const word = document.getText(range);
+        console.log(word, range);
+        vscode.window.showInformationMessage(word);
+        return Promise.resolve(new vscode.Hover("This is working"));
+      },
+    }
+  );
+  context.subscriptions.push(hoverDiposable);
 
   // The command has been defined in the package.json file
   // Now provide the implementation of the command with  registerCommand
@@ -61,5 +77,5 @@ function deactivate() {}
 
 module.exports = {
   activate,
-  deactivate
+  deactivate,
 };
