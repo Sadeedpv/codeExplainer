@@ -19,16 +19,19 @@
   "icon": "assets/code-explainer-logo-ext.png",
   "activationEvents": [
     "onCommand:code-explainer.hello-world",
-    "onCommand:code-explainer.explain"
+    "onCommand:code-explainer.explain",
+    "onLanguage:javascript"
   ],
   "contributes": {
     "commands": [
       {
         "command": "code-explainer.hello-world",
+        "category": "CodeExplainer",
         "title": "Hello World!"
       },
       {
         "command": "code-explainer.explain",
+        "category": "CodeExplainer",
         "title": "Explain"
       }
     ],

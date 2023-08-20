@@ -9,7 +9,7 @@ const { getCodeExplanation, showCodeExplanation } = require("./libs/functions");
 
 /**
  * @param {vscode.ExtensionContext} context
- */
+ */ 
 function activate(context) {
   // Use the console to output diagnostic information (console.log) and errors (console.error)
   // This line of code will only be executed once when your extension is activated
@@ -18,19 +18,19 @@ function activate(context) {
   );
 
   // Give explanation while hovering over a text
-  let hoverDiposable = vscode.languages.registerHoverProvider(
+  let hoverDisposable = vscode.languages.registerHoverProvider(
     { scheme: "file", language: "javascript" },
     {
-      async provideHover(document, position, token) {
+      provideHover(document, position) {
         const range = document.getWordRangeAtPosition(position);
         const word = document.getText(range);
         console.log(word, range);
         vscode.window.showInformationMessage(word);
-        return Promise.resolve(new vscode.Hover("This is working"));
+        return new vscode.Hover("This is working");
       },
     }
   );
-  context.subscriptions.push(hoverDiposable);
+  context.subscriptions.push(hoverDisposable);
 
   // The command has been defined in the package.json file
   // Now provide the implementation of the command with  registerCommand
