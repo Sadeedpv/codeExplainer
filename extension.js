@@ -2,35 +2,31 @@
 // Import the module and reference it with the alias vscode in your code below
 const vscode = require("vscode");
 // Import the functions
-const { getCodeExplanation, showCodeExplanation } = require("./libs/functions");
+const {
+  getCodeExplanation,
+  showCodeExplanation,
+  getHoverExplanation,
+} = require("./libs/functions");
 
 // This method is called when your extension is activated
 // Your extension is activated the very first time the command is executed
 
+
+/**
+ * This is a cache map to store the data loaded from ChatGPT since flickering of the mouse could break the extension
+ */
+
+const explanationCacheMap = new Map();
+
 /**
  * @param {vscode.ExtensionContext} context
- */ 
+ */
 function activate(context) {
   // Use the console to output diagnostic information (console.log) and errors (console.error)
   // This line of code will only be executed once when your extension is activated
   console.log(
     'Congratulations, your extension "code-explainer" is now active!'
   );
-
-  // Give explanation while hovering over a text
-  let hoverDisposable = vscode.languages.registerHoverProvider(
-    { scheme: "file", language: "javascript" },
-    {
-      provideHover(document, position) {
-        const range = document.getWordRangeAtPosition(position);
-        const word = document.getText(range);
-        console.log(word, range);
-        vscode.window.showInformationMessage(word);
-        return new vscode.Hover("This is working");
-      },
-    }
-  );
-  context.subscriptions.push(hoverDisposable);
 
   // The command has been defined in the package.json file
   // Now provide the implementation of the command with  registerCommand
@@ -70,6 +66,39 @@ function activate(context) {
     }
   );
   context.subscriptions.push(panelDisposable);
+
+  // Give explanation while hovering over a text
+  let hoverDisposable = vscode.languages.registerHoverProvider(
+    { scheme: "file", language: "javascript" },
+    {
+      async provideHover(document, position) {
+        const lineText = document.lineAt(position.line).text;
+        if (lineText) {
+          if (explanationCacheMap.has(lineText)) {
+            return Promise.resolve(new vscode.Hover(explanationCacheMap.get(lineText)));
+          }
+
+          if (explanationCacheMap.get(lineText) === null) {
+            // Data is still loading, return a Promise that resolves once the data is loaded
+            return new Promise(resolve => {
+              setTimeout(() => {
+                if (explanationCacheMap.has(lineText) && explanationCacheMap.get(lineText) !== null) {
+                  resolve(new vscode.Hover(explanationCacheMap.get(lineText)));
+                }
+              },3000)
+            })
+          }
+
+          explanationCacheMap.set(lineText, null);
+
+          getHoverExplanation(lineText).then((explanation) => {
+            explanationCacheMap.set(lineText, explanation);
+          })
+        }
+      },
+    }
+  );
+  context.subscriptions.push(hoverDisposable);
 }
 
 // This method is called when your extension is deactivated

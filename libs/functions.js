@@ -52,7 +52,7 @@ const getCodeExplanation = async (code) => {
   if (!code) {
     return "Please select the code you want to Explain";
   }
-  vscode.window.showInformationMessage(`Waiting for Explanation...`);
+  vscode.window.showInformationMessage(`Waiting for Your Explanation...`);
   let panel = vscode.window.createWebviewPanel(
     "waitcodeExplanation", // Id
     "Code Explanation", // Title
@@ -78,14 +78,14 @@ const getCodeExplanation = async (code) => {
       {
         role: "system",
         content:
-          "You are a helpful assistant that explains code and gives suggestions.",
+          "You are a helpful assistant that explains code or writes code or gives suggestion.",
       },
       {
         role: "user",
         content: `${code}`,
       },
     ],
-    temperature: 0.8,
+    temperature: 0.8
   });
 
   vscode.window.showInformationMessage("Explanation Ready!");
@@ -111,7 +111,34 @@ const showCodeExplanation = (code) => {
   });
 };
 
+const getHoverExplanation = async (code) => {
+  if (!apiKey) {
+    vscode.window.showErrorMessage(
+      "Please set your OpenAI API key in the extension settings."
+    );
+    return;
+  }
+  // Ask Chatgpt
+  const explanation = await openai.createChatCompletion({
+    model: "gpt-3.5-turbo",
+    messages: [
+      {
+        role: "system",
+        content:
+          "You are a helpful assistant that explains code or writes code or gives suggestion.",
+      },
+      {
+        role: "user",
+        content: `${code}`,
+      }
+    ],
+    temperature: 0.8
+  });
+  console.log(explanation);
+  return explanation.data.choices[0].message.content;
+}
 module.exports = {
   getCodeExplanation,
   showCodeExplanation,
+  getHoverExplanation
 };
