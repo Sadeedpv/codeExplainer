@@ -20,9 +20,30 @@
   "activationEvents": [
     "onCommand:code-explainer.hello-world",
     "onCommand:code-explainer.explain",
-    "onLanguage:javascript"
+    "onLanguage:javascript",
+    "onView:code-explainer"
   ],
   "contributes": {
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "code-explainer",
+          "title": "Code Explainer",
+          "icon": "assets/code-explainer-logo.svg"
+        }
+      ]
+    },
+    "views": {
+      "code-explainer": [
+        {
+          "id": "code-explainer",
+          "name": "Code Explainer",
+          "type": "webview",
+          "icon": "assets/code-explainer-logo.svg",
+          "contextualTitle": "CodeExplainer"
+        }
+      ]
+    },
     "commands": [
       {
         "command": "code-explainer.hello-world",
