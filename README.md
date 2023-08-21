@@ -1,4 +1,14 @@
 # Code Explainer
+
+
+[![version](https://img.shields.io/visual-studio-marketplace/v/SadeedPV.code-explainer)](https://marketplace.visualstudio.com/items?itemName=SadeedPV.code-explainer)
+[![installs](https://img.shields.io/visual-studio-marketplace/i/SadeedPV.code-explainer)](https://marketplace.visualstudio.com/items?itemName=SadeedPV.code-explainer)
+[![rating](https://img.shields.io/visual-studio-marketplace/r/SadeedPV.code-explainer)](https://marketplace.visualstudio.com/items?itemName=SadeedPV.code-explainer)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![github](https://img.shields.io/badge/github-green)](https://github.com/Sadeedpv/codeExplainer)
+
+
+
 ### This is a VS Code extension that explains every bit of code inside your editor. It uses the OpenAI API to generate explanations for code.
 
 ![Code Explainer](https://github.com/Sadeedpv/codeExplainer/blob/main/assets/code-explainer-logo.png?raw=true)
