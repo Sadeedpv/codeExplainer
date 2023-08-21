@@ -2,7 +2,7 @@
   "name": "code-explainer",
   "displayName": "Code Explainer",
   "description": "Explains every bit of code inside your editor",
-  "version": "0.0.9",
+  "version": "0.1.0",
   "repository": {
     "type": "git",
     "url": "https://github.com/Sadeedpv/codeExplainer"
@@ -44,6 +44,11 @@
             "type": "string",
             "default": "",
             "description": "OPENAI API Key"
+          },
+          "code-explainer.hover":{
+            "type":"boolean",
+            "default":false,
+            "description":"Show Explanation on Hover (Beta)"
           }
         }
       }

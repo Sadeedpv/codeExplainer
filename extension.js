@@ -17,6 +17,10 @@ const {
 
 const explanationCacheMap = new Map();
 
+// Push hover feature only if hover option is turned on in the configuration
+const config = vscode.workspace.getConfiguration("code-explainer");
+const hover = config.get("hover");
+
 /**
  * @param {vscode.ExtensionContext} context
  */
@@ -67,49 +71,55 @@ function activate(context) {
   context.subscriptions.push(panelDisposable);
 
   // Give explanation while hovering over a text
-  let hoverDisposable = vscode.languages.registerHoverProvider(
-    { scheme: "file", language: "javascript" },
-    {
-      async provideHover(document, position) {
-        const lineText = document.lineAt(position.line).text;
-        if (lineText) {
-          if (
-            explanationCacheMap.has(lineText) &&
-            explanationCacheMap.get(lineText) !== null
-          ) {
-            return Promise.resolve(
-              new vscode.Hover(explanationCacheMap.get(lineText))
-            );
-          }
+  if (hover === true) {
+    let hoverDisposable = vscode.languages.registerHoverProvider(
+      { scheme: "file", language: "javascript" },
+      {
+        async provideHover(document, position) {
+          const lineText = document.lineAt(position.line).text;
+          vscode.window.showErrorMessage(lineText);
+          if (lineText) {
+            if (
+              explanationCacheMap.has(lineText) &&
+              explanationCacheMap.get(lineText) !== null
+            ) {
+              return Promise.resolve(
+                new vscode.Hover(explanationCacheMap.get(lineText))
+              );
+            }
 
-          if (explanationCacheMap.get(lineText) === null) {
-            return new Promise((resolve) => {
-              let interval = setInterval(() => {
-                if (
-                  explanationCacheMap.has(lineText) &&
-                  explanationCacheMap.get(lineText) !== null
-                ) {
-                  clearInterval(interval);
-                  resolve(new vscode.Hover(explanationCacheMap.get(lineText)));
-                }
-              }, 100);
-            });
-          }
+            if (explanationCacheMap.get(lineText) === null) {
+              return new Promise((resolve) => {
+                let interval = setInterval(() => {
+                  if (
+                    explanationCacheMap.has(lineText) &&
+                    explanationCacheMap.get(lineText) !== null
+                  ) {
+                    clearInterval(interval);
+                    resolve(
+                      new vscode.Hover(explanationCacheMap.get(lineText))
+                    );
+                  }
+                }, 100);
+              });
+            }
 
-          explanationCacheMap.set(lineText, null);
-          try {
-            const explanation = await getHoverExplanation(lineText);
-            explanationCacheMap.set(lineText, explanation);
-            return new vscode.Hover(explanation);
-          } catch (err) {
-            console.error(err);
-            return new vscode.Hover("Failed to get code explanation");
+            explanationCacheMap.set(lineText, null);
+            try {
+              const explanation = await getHoverExplanation(lineText);
+              explanationCacheMap.set(lineText, explanation);
+              return new vscode.Hover(explanation);
+            } catch (err) {
+              console.error(err);
+              return new vscode.Hover("Failed to get code explanation");
+            }
           }
-        }
-      },
-    }
-  );
-  context.subscriptions.push(hoverDisposable);
+        },
+      }
+    );
+
+    context.subscriptions.push(hoverDisposable);
+  }
 }
 
 // This method is called when your extension is deactivated
