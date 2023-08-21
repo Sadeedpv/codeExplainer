@@ -36,6 +36,9 @@ All you have to do is select the piece of code you want the explanation for and 
 
 But before that, you have to configure your OpenAI API key. Go to your VSCode settings(Ctrl + ,) and search for code-explainer and set your `OPENAI API KEY` which you can easily obtain from here - [openai](https://platform.openai.com/account/api-keys)
 
+### IMPORTANT !!!
+> If you want explanation on hover, you can turn on ***Show Explanation on Hover*** (Only compatible with JavaScript) from the settings, but we do not recommend it, since it's in the beta stage.
+
 Here is an example of how the extension can be used:
 
 1. Open a file with some code in it.
