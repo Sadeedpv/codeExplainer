@@ -11,7 +11,6 @@ const {
 // This method is called when your extension is activated
 // Your extension is activated the very first time the command is executed
 
-
 /**
  * This is a cache map to store the data loaded from ChatGPT since flickering of the mouse could break the extension
  */
@@ -74,26 +73,38 @@ function activate(context) {
       async provideHover(document, position) {
         const lineText = document.lineAt(position.line).text;
         if (lineText) {
-          if (explanationCacheMap.has(lineText)) {
-            return Promise.resolve(new vscode.Hover(explanationCacheMap.get(lineText)));
+          if (
+            explanationCacheMap.has(lineText) &&
+            explanationCacheMap.get(lineText) !== null
+          ) {
+            return Promise.resolve(
+              new vscode.Hover(explanationCacheMap.get(lineText))
+            );
           }
 
           if (explanationCacheMap.get(lineText) === null) {
-            // Data is still loading, return a Promise that resolves once the data is loaded
-            return new Promise(resolve => {
-              setTimeout(() => {
-                if (explanationCacheMap.has(lineText) && explanationCacheMap.get(lineText) !== null) {
+            return new Promise((resolve) => {
+              let interval = setInterval(() => {
+                if (
+                  explanationCacheMap.has(lineText) &&
+                  explanationCacheMap.get(lineText) !== null
+                ) {
+                  clearInterval(interval);
                   resolve(new vscode.Hover(explanationCacheMap.get(lineText)));
                 }
-              },3000)
-            })
+              }, 100);
+            });
           }
 
           explanationCacheMap.set(lineText, null);
-
-          getHoverExplanation(lineText).then((explanation) => {
+          try {
+            const explanation = await getHoverExplanation(lineText);
             explanationCacheMap.set(lineText, explanation);
-          })
+            return new vscode.Hover(explanation);
+          } catch (err) {
+            console.error(err);
+            return new vscode.Hover("Failed to get code explanation");
+          }
         }
       },
     }

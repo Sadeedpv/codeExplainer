@@ -72,25 +72,28 @@ const getCodeExplanation = async (code) => {
     panel.dispose();
   });
   // Ask Chatgpt
-  const explanation = await openai.createChatCompletion({
-    model: "gpt-3.5-turbo",
-    messages: [
-      {
-        role: "system",
-        content:
-          "You are a helpful assistant that explains code or writes code or gives suggestion.",
-      },
-      {
-        role: "user",
-        content: `${code}`,
-      },
-    ],
-    temperature: 0.8
-  });
-
-  vscode.window.showInformationMessage("Explanation Ready!");
-  panel.dispose();
-  return explanation.data.choices[0].message.content;
+  try {
+    const explanation = await openai.createChatCompletion({
+      model: "gpt-3.5-turbo",
+      messages: [
+        {
+          role: "system",
+          content:
+            "You are a helpful assistant that explains code or writes code or gives suggestion.",
+        },
+        {
+          role: "user",
+          content: `${code}`,
+        },
+      ],
+      temperature: 0.8,
+    });
+    vscode.window.showInformationMessage("Explanation Ready!");
+    panel.dispose();
+    return explanation.data.choices[0].message.content;
+  } catch (err) {
+    return err;
+  }
 };
 
 const showCodeExplanation = (code) => {
@@ -118,27 +121,34 @@ const getHoverExplanation = async (code) => {
     );
     return;
   }
+  if (!code) {
+    return "Please Hover over the code you want to explain."
+  }
   // Ask Chatgpt
-  const explanation = await openai.createChatCompletion({
-    model: "gpt-3.5-turbo",
-    messages: [
-      {
-        role: "system",
-        content:
-          "You are a helpful assistant that explains code or writes code or gives suggestion.",
-      },
-      {
-        role: "user",
-        content: `${code}`,
-      }
-    ],
-    temperature: 0.8
-  });
-  console.log(explanation);
-  return explanation.data.choices[0].message.content;
-}
+  try {
+    const explanation = await openai.createChatCompletion({
+      model: "gpt-3.5-turbo",
+      messages: [
+        {
+          role: "system",
+          content:
+            "You are a helpful assistant that explains code or writes code or gives suggestion.",
+        },
+        {
+          role: "user",
+          content: `${code}`,
+        },
+      ],
+      temperature: 0.8,
+    });
+    console.log(explanation);
+    return explanation.data.choices[0].message.content;
+  } catch (err) { 
+    return err;
+  }
+};
 module.exports = {
   getCodeExplanation,
   showCodeExplanation,
-  getHoverExplanation
+  getHoverExplanation,
 };
