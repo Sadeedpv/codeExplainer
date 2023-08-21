@@ -77,7 +77,6 @@ function activate(context) {
       {
         async provideHover(document, position) {
           const lineText = document.lineAt(position.line).text;
-          vscode.window.showErrorMessage(lineText);
           if (lineText) {
             if (
               explanationCacheMap.has(lineText) &&
