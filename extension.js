@@ -127,19 +127,98 @@ function activate(context) {
         enableScripts: true,
       };
       webviewView.webview.html = `
-      <div>
-        <input id="input" />
-        <button id="send-button">Send Message</button>
-      </div>
-      <script>
-        const vscode = acquireVsCodeApi();
-        const button = document.getElementById('send-button');
-        const input = document.getElementById('input');
-        button.addEventListener('click', () => {
-          // Send a message to the extension
-          vscode.postMessage({ command: 'code', text: input.value });
-        });
-      </script>
+        <!DOCTYPE html>
+        <html lang="en">
+          <head>
+              <meta charset="UTF-8">
+              <meta name="viewport" content="width=device-width, initial-scale=1.0">
+              <title>Code Explainer</title>
+              <style>
+                *{
+                  margin:0;
+                  padding:0;
+                  box-sizing:border-box;
+                }
+                .outer-div {
+                  display:flex;
+                  justify-content:center;
+                  flex-direction:column;
+                  gap: 12px;
+                  margin-top:15px;
+                  padding:5px;
+                }
+                #input{
+                  box-sizing: border-box;
+                  border: none;
+                  border-radius: 2px;
+                  font-size: 16px;
+                  background-color: white;
+                  padding:10px;
+                  outline:none;
+                  background-color:#2e2d2d;
+                  resize:none;
+                  color:white;
+                }
+                #send-button{
+                  
+                    cursor: pointer;
+                    outline: 0;
+                    color: #fff;
+                    background-color: #0857c9;
+                    border-color: #0857c9;
+                    display: inline-block;
+                    font-weight: 400;
+                    line-height: 1.2;
+                    width:75%;
+                    text-align: center;
+                    border: 0.6px solid transparent;
+                    padding: 7px 5px;
+                    font-size: 13px;
+                    border-radius: .25rem;
+                    transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+                }
+                #send-button:hover{
+                    color: #fff;
+                    background-color: #0b5ed7;
+                    border-color: #0a58ca;
+                }
+                ::placeholder {
+                    color: #c4c4c4;
+                    opacity: 1; /* Firefox */
+                }
+
+                :-ms-input-placeholder { /* Internet Explorer 10-11 */
+                color: #c4c4c4;
+                }
+
+                ::-ms-input-placeholder { /* Microsoft Edge */
+                color: #c4c4c4;
+                }
+              </style>
+              
+          </head>
+          <body>
+            <div class='outer-div'>
+              <textarea id="input" placeholder="Enter code" rows="2" cols="20"></textarea>
+              <button id="send-button">Get Explanation</button>
+            </div>
+            <script>
+              const vscode = acquireVsCodeApi();
+              const button = document.getElementById('send-button');
+              const input = document.getElementById('input');
+              input.addEventListener('keypress', (event) =>{
+                if (event.key === "Enter"){
+                  // Send a message to the extension
+                  event.preventDefault();
+                  vscode.postMessage({ command: 'code', text: input.value });
+                }
+              })
+              button.addEventListener('click', () => {
+                // Send a message to the extension
+                vscode.postMessage({ command: 'code', text: input.value });
+              });
+            </script>
+          </body>
       `;
       webviewView.webview.onDidReceiveMessage(async (data) => {
         console.log(data);
