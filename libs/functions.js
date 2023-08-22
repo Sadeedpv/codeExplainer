@@ -63,9 +63,19 @@ const getCodeExplanation = async (code) => {
   );
 
   panel.webview.html = `
-  <div id="outer-div">Waiting for explanation <span id="dots"> </span> </div>
-  ${style}
-  ${script}
+  <!DOCTYPE html>
+  <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Loading...</title>
+        ${style}
+    </head>
+    <body>
+      <div id="outer-div">Waiting for explanation <span id="dots"> </span> </div>
+      ${script}
+    </body>
+  </html>
   `;
 
   panel.onDidDispose(() => {
@@ -105,8 +115,19 @@ const showCodeExplanation = (code) => {
   );
   code = md.render(code);
   panel.webview.html = `
-  <div id="outer-div">${code}</div>
-  ${style}
+  <!DOCTYPE html>
+  <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Code Explanation</title>
+        ${style}
+    </head>
+    <body>
+      <div id="outer-div">${code}</div>
+    </body>
+</html>
+
   `;
 
   panel.onDidDispose(() => {
@@ -122,7 +143,7 @@ const getHoverExplanation = async (code) => {
     return;
   }
   if (!code) {
-    return "Please Hover over the code you want to explain."
+    return "Please Hover over the code you want to explain.";
   }
   // Ask Chatgpt
   try {
@@ -143,7 +164,7 @@ const getHoverExplanation = async (code) => {
     });
     console.log(explanation);
     return explanation.data.choices[0].message.content;
-  } catch (err) { 
+  } catch (err) {
     return err;
   }
 };
