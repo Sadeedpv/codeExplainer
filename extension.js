@@ -119,6 +119,38 @@ function activate(context) {
 
     context.subscriptions.push(hoverDisposable);
   }
+
+  // Input box on the sidebar
+  let sideBar = vscode.window.registerWebviewViewProvider("code-explainer", {
+    resolveWebviewView: (webviewView) => {
+      webviewView.webview.options = {
+        enableScripts: true,
+      };
+      webviewView.webview.html = `
+      <div>
+        <input id="input" />
+        <button id="send-button">Send Message</button>
+      </div>
+      <script>
+        const vscode = acquireVsCodeApi();
+        const button = document.getElementById('send-button');
+        const input = document.getElementById('input');
+        button.addEventListener('click', () => {
+          // Send a message to the extension
+          vscode.postMessage({ command: 'code', text: input.value });
+        });
+      </script>
+      `;
+      webviewView.webview.onDidReceiveMessage(async (data) => {
+        console.log(data);
+        if (data.command === "code") {
+          let explanation = await getCodeExplanation(data.text);
+          showCodeExplanation(explanation);
+        }
+      });
+    },
+  });
+  context.subscriptions.push(sideBar);
 }
 
 // This method is called when your extension is deactivated
