@@ -20,7 +20,7 @@
   "activationEvents": [
     "onCommand:code-explainer.hello-world",
     "onCommand:code-explainer.explain",
-    "onLanguage:javascript",
+    "onLanguage",
     "onView:code-explainer"
   ],
   "contributes": {

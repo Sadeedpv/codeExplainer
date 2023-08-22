@@ -1,16 +1,20 @@
-### Changelog
+# Changelog
 
-All notable changes to this project will be documented in this file. Dates are displayed in UTC.
+This document records significant modifications made to the project. All changes are timestamped in UTC.
 
-### 2023-8-17
+## 2023-08-17
 
-- Converted the explanation to markdown Format
-- Added loading state 
+- Implemented the conversion of explanations into Markdown format.
+- Introduced a loading state to enhance user experience.
 
-### 2023-8-20
+## 2023-08-20
 
-- Added explanation on hovering, but only compatible with JavaScript
+- Added a feature that provides code explanations upon hovering. Note that this feature currently supports JavaScript exclusively.
 
-### 2023-8-21
+## 2023-08-21
 
-- Removed explanation on hover because of the bugs associated with it
+- Temporarily disabled the explanation-on-hover functionality due to unresolved issues.
+
+## 2023-08-22
+
+- Integrated a user-friendly sidebar input mechanism for providing explanations.

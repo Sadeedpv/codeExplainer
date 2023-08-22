@@ -73,7 +73,7 @@ function activate(context) {
   // Give explanation while hovering over a text
   if (hover === true) {
     let hoverDisposable = vscode.languages.registerHoverProvider(
-      { scheme: "file", language: "javascript" },
+      { scheme: "file", language: "*" },
       {
         async provideHover(document, position) {
           const lineText = document.lineAt(position.line).text;
