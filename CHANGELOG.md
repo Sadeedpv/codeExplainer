@@ -18,3 +18,7 @@ This document records significant modifications made to the project. All changes
 ## 2023-08-22
 
 - Integrated a user-friendly sidebar input mechanism for providing explanations.
+
+## 2023-08-23
+
+- Fixed a bug where the extension crashes when an incorrect API key is provided.
