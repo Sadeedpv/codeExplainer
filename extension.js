@@ -21,6 +21,10 @@ const explanationCacheMap = new Map();
 const config = vscode.workspace.getConfiguration("code-explainer");
 const hover = config.get("hover");
 
+const errorMessage =
+  "Something went wrong! Please make sure your API key is correct";
+const failMessage = "Failed to get code Explanation!";
+
 /**
  * @param {vscode.ExtensionContext} context
  */
@@ -60,10 +64,13 @@ function activate(context) {
       const text = document.getText(selection);
 
       try {
-        const explanation = await getCodeExplanation(text);
+        let explanation = await getCodeExplanation(text);
+        if (!explanation) {
+          explanation = errorMessage;
+        }
         showCodeExplanation(explanation);
       } catch (err) {
-        vscode.window.showErrorMessage("Failed to get code explanation");
+        vscode.window.showErrorMessage(failMessage);
         console.error(err);
       }
     }
@@ -105,12 +112,15 @@ function activate(context) {
 
             explanationCacheMap.set(lineText, null);
             try {
-              const explanation = await getHoverExplanation(lineText);
+              let explanation = await getHoverExplanation(lineText);
+              if (!explanation) {
+                explanation = errorMessage;
+              }
               explanationCacheMap.set(lineText, explanation);
               return new vscode.Hover(explanation);
             } catch (err) {
               console.error(err);
-              return new vscode.Hover("Failed to get code explanation");
+              return new vscode.Hover(failMessage);
             }
           }
         },
@@ -223,8 +233,16 @@ function activate(context) {
       webviewView.webview.onDidReceiveMessage(async (data) => {
         console.log(data);
         if (data.command === "code") {
-          let explanation = await getCodeExplanation(data.text);
-          showCodeExplanation(explanation);
+          try {
+            let explanation = await getCodeExplanation(data.text);
+            if (!explanation) {
+              explanation = errorMessage;
+            }
+            showCodeExplanation(explanation);            
+          } catch (err) {
+            console.error(err);
+            vscode.window.showErrorMessage(failMessage);
+          }
         }
       });
     },

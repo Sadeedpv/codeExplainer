@@ -102,7 +102,9 @@ const getCodeExplanation = async (code) => {
     panel.dispose();
     return explanation.data.choices[0].message.content;
   } catch (err) {
-    return err;
+    console.error(err);
+    panel.dispose();
+    return;
   }
 };
 
@@ -137,10 +139,7 @@ const showCodeExplanation = (code) => {
 
 const getHoverExplanation = async (code) => {
   if (!apiKey) {
-    vscode.window.showErrorMessage(
-      "Please set your OpenAI API key in the extension settings."
-    );
-    return;
+    return "Please set your OpenAI API key if you want to use Code-Explainer extension.";
   }
   if (!code) {
     return "Please Hover over the code you want to explain.";
@@ -165,7 +164,8 @@ const getHoverExplanation = async (code) => {
     console.log(explanation);
     return explanation.data.choices[0].message.content;
   } catch (err) {
-    return err;
+    console.error(err);
+    return;
   }
 };
 module.exports = {
