@@ -23,9 +23,6 @@ All types of contributions are encouraged and valued. See the [Table of Contents
   - [Suggesting Enhancements](#suggesting-enhancements)
   - [Your First Code Contribution](#your-first-code-contribution)
   - [Improving The Documentation](#improving-the-documentation)
-- [Styleguides](#styleguides)
-  - [Commit Messages](#commit-messages)
-- [Join The Project Team](#join-the-project-team)
 
 ## I Have a Question
 
@@ -139,9 +136,9 @@ Enhancement suggestions are tracked as [GitHub issues](https://github.com/Sadeed
 
 4. Run `npm install` to install all dependencies.
 
-5. Navigate to the `extension.js` file and press `F5` to run the extension in debug mode.
+5. Navigate to the `extension.js` file and press `F5` to run the extension in debug mode. It'll open a new `Extension Development Host` window.
 
-6. Check if the extension is running on your local machine by pressing `Ctrl+Shift+P` to open the command palette in the newly created VS Code window. Type `explain` and press `Enter`. If the extension is running, you should see a notification in the bottom right corner of the window.
+6. Check if the extension is running on your local machine by pressing `Ctrl+Shift+P` to open the command palette in the `Extension Development Host`. Type `explain` and press `Enter`. If the extension is running, you should see a notification in the bottom right corner of the window.
 
 7. Make your changes to the code and test them in the VS Code window. You can also use the `console.log()` function to log messages to the debug console.
 
