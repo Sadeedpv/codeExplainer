@@ -189,7 +189,3 @@ Thank you for your contributions to improving our project's documentation. Your 
 * If you have any questions or need assistance with documentation-related contributions, please feel free to reach out to our maintainers or the community for guidance.
 
 * We appreciate your dedication to making our project better for everyone. Happy documenting! 📖✍️
-
-## Attribution
-
-This guide is based on the **contributing-gen**. [Make your own](https://github.com/bttger/contributing-gen)!
